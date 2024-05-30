@@ -1,6 +1,6 @@
 package day3.session1;
 
-public class Employee {
+public abstract class Employee {
 
     private int id;
     private String name;
@@ -39,6 +39,8 @@ public class Employee {
     public double getAnnualSalary() {
         return salary * 12;
     }
+
+    public abstract double getTotalSalary();
 
     @Override
     public String toString() {
