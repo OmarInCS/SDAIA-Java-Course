@@ -1,2 +1,28 @@
-### FizzBuzz Variation
-- Write a Java program that prints the numbers from 1 to 100. For multiples of 3, print "Fizz" instead of the number, for multiples of 5, print "Buzz". For numbers which are multiples of both 3 and 5, print "FizzBuzz". Additionally, for multiples of 7, print "Jazz".
+
+import java.util.Scanner;
+
+public class Main {
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+
+
+
+                for (int i = 1; i <= 100; i++) {
+                     if (i % 3 == 0 && i % 5 == 0) {
+                        System.out.println("FizzBuzz");
+                    }
+                    else if (i % 3 == 0) {
+                        System.out.println("Fizz");
+                    } else if (i % 5 == 0) {
+                        System.out.println("Buzz");
+                    } else if (i % 7 == 0) {
+                        System.out.println("Jazz");
+                    } else {
+                        System.out.println(i);
+                    }
+                }
+            }
+        }
