@@ -32,7 +32,7 @@ public class DepartmentDAO {
         st.executeUpdate();
     }
 
-    public void updateDept(int deptId) throws SQLException {
+    public void deleteDept(int deptId) throws SQLException {
         Connection conn = DriverManager.getConnection(URL);
         PreparedStatement st = conn.prepareStatement(DELETE_DEPT);
         st.setInt(1, deptId);
