@@ -3,6 +3,7 @@ package org.example.controller;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.example.dao.DepartmentDAO;
+import org.example.dto.DepartmentFilterDto;
 import org.example.models.Department;
 
 import java.sql.SQLException;
@@ -16,12 +17,14 @@ public class DepartmentController {
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public ArrayList<Department> getAllDepartments(
-            @QueryParam("locId") Integer locId,
-            @QueryParam("limit") Integer limit,
-            @QueryParam("offset") int offset
+//            @QueryParam("locId") Integer locId,
+//            @QueryParam("limit") Integer limit,
+//            @QueryParam("offset") int offset
+            @BeanParam DepartmentFilterDto filter
     ) {
         try {
-            return dao.selectAllDepts(locId, limit, offset);
+//            return dao.selectAllDepts(locId, limit, offset);
+            return dao.selectAllDepts(filter);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -70,6 +73,11 @@ public class DepartmentController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Path("{deptId}/employees")
+    public EmployeeController getEmployeeController() {
+        return new EmployeeController();
     }
 
 

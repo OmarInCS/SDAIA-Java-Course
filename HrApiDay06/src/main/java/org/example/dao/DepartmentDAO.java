@@ -1,6 +1,7 @@
 package org.example.dao;
 
 
+import org.example.dto.DepartmentFilterDto;
 import org.example.models.Department;
 
 import java.sql.*;
@@ -91,4 +92,34 @@ public class DepartmentDAO {
         return depts;
     }
 
+    public ArrayList<Department> selectAllDepts(DepartmentFilterDto filter) throws SQLException, ClassNotFoundException {
+        Class.forName("org.sqlite.JDBC");
+        Connection conn = DriverManager.getConnection(URL);
+        PreparedStatement st;
+        if(filter.getLocId() != null && filter.getLimit() != null) {
+            st = conn.prepareStatement(SELECT_DEPT_WITH_LOC_PAGINATION);
+            st.setInt(1, filter.getLocId());
+            st.setInt(2, filter.getLimit());
+            st.setInt(3, filter.getOffset());
+        }
+        else if(filter.getLocId() != null) {
+            st = conn.prepareStatement(SELECT_DEPT_WITH_LOC);
+            st.setInt(1, filter.getLocId());
+        }
+        else if(filter.getLimit() != null) {
+            st = conn.prepareStatement(SELECT_DEPT_WITH_PAGINATION);
+            st.setInt(1, filter.getLimit());
+            st.setInt(2, filter.getOffset());
+        }
+        else {
+            st = conn.prepareStatement(SELECT_ALL_DEPTS);
+        }
+        ResultSet rs = st.executeQuery();
+        ArrayList<Department> depts = new ArrayList<>();
+        while (rs.next()) {
+            depts.add(new Department(rs));
+        }
+
+        return depts;
+    }
 }
