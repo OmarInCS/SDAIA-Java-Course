@@ -61,11 +61,23 @@ public class DepartmentController {
             dto.setDepartmentName(dept.getDepartmentName());
             dto.setLocationId(dept.getLocationId());
 
+            addLinks(dto);
+
             return Response.ok(dto).build();
         }
         catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void addLinks(DepartmentDto dto) {
+        URI selfUri = uriInfo.getAbsolutePath();
+        URI empsUri = uriInfo.getAbsolutePathBuilder()
+                                .path(EmployeeController.class)
+                                .build();
+
+        dto.addLink(selfUri.toString(), "self");
+        dto.addLink(empsUri.toString(), "employees");
     }
 
     @DELETE
@@ -82,6 +94,26 @@ public class DepartmentController {
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     public Response insertDepartment(Department dept) {
+
+        try {
+            dao.insertDept(dept);
+            NewCookie cookie = (new NewCookie.Builder("username")).value("OOOOO").build();
+            URI uri = uriInfo.getAbsolutePathBuilder().path(dept.getDepartmentId() + "").build();
+            return Response
+//                    .status(Response.Status.CREATED)
+                    .created(uri)
+//                    .cookie(new NewCookie("username", "OOOOO"))
+                    .cookie(cookie)
+                    .header("Created by", "Wael")
+                    .build();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @POST
+//    @Consumes(MediaType.APPLICATION_XML)
+    public Response insertDepartmentFromForm(@BeanParam Department dept) {
 
         try {
             dao.insertDept(dept);

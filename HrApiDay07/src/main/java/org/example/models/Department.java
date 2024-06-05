@@ -1,5 +1,6 @@
 package org.example.models;
 
+import jakarta.ws.rs.FormParam;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.sql.ResultSet;
@@ -8,8 +9,11 @@ import java.sql.SQLException;
 @XmlRootElement
 public class Department {
 
+    @FormParam("departmentId")
     private int departmentId;
+    @FormParam("departmentName")
     private String departmentName;
+    @FormParam("locationId")
     private int locationId;
 
     public Department() {
