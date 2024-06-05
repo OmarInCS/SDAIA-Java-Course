@@ -3,7 +3,9 @@ package org.example.controller;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import org.example.dao.DepartmentDAO;
+import org.example.dto.DepartmentDto;
 import org.example.dto.DepartmentFilterDto;
+import org.example.exceptions.DataNotFoundException;
 import org.example.models.Department;
 
 import java.net.URI;
@@ -45,12 +47,23 @@ public class DepartmentController {
 
     @GET
     @Path("{deptId}")
-    public Department getDepartment(@PathParam("deptId") int deptId) {
+    public Response getDepartment(@PathParam("deptId") int deptId) throws SQLException {
 
         try {
             Department dept = dao.selectDept(deptId);
-            return dept;
-        } catch (Exception e) {
+
+            if (dept == null) {
+                throw new DataNotFoundException("Department " + deptId + "Not found");
+            }
+
+            DepartmentDto dto = new DepartmentDto();
+            dto.setDepartmentId(dept.getDepartmentId());
+            dto.setDepartmentName(dept.getDepartmentName());
+            dto.setLocationId(dept.getLocationId());
+
+            return Response.ok(dto).build();
+        }
+        catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
