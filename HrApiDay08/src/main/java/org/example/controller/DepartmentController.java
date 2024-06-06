@@ -20,7 +20,7 @@ public class DepartmentController {
     @Context HttpHeaders headers;
 
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, "text/csv"})
     public Response getAllDepartments(
             @BeanParam DepartmentFilterDto filter
     ) {
@@ -30,6 +30,12 @@ public class DepartmentController {
                 return Response
                         .ok(depts)
                         .type(MediaType.APPLICATION_XML)
+                        .build();
+            }
+            else if(headers.getAcceptableMediaTypes().contains(MediaType.valueOf("text/csv"))) {
+                return Response
+                        .ok(depts)
+                        .type("text/csv")
                         .build();
             }
 
@@ -44,6 +50,7 @@ public class DepartmentController {
 
     @GET
     @Path("{deptId}")
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, "text/csv"})
     public Response getDepartment(@PathParam("deptId") int deptId) throws SQLException {
 
         try {
