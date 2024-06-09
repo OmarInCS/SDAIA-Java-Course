@@ -12,6 +12,7 @@ public class DepartmentDAO {
     private static final String URL = "jdbc:sqlite:D:\\Private\\SDAIA\\SDAIA Java Course\\JavaBasics\\src\\main\\java\\day4\\hr.db";
     private static final String SELECT_ALL_DEPTS = "select * from departments";
     private static final String SELECT_ONE_DEPT = "select * from departments where department_id = ?";
+    private static final String SELECT_ONE_DEPT_JOIN_LOC = "select * from departments join locations on departments.location_id = locations.location_id where department_id = ?";
     private static final String SELECT_DEPT_WITH_LOC = "select * from departments where location_id = ?";
     private static final String SELECT_DEPT_WITH_LOC_PAGINATION = "select * from departments where location_id = ? order by department_id limit ? offset ?";
     private static final String SELECT_DEPT_WITH_PAGINATION = "select * from departments order by department_id limit ? offset ?";
@@ -50,7 +51,8 @@ public class DepartmentDAO {
     public Department selectDept(int deptId) throws SQLException, ClassNotFoundException {
         Class.forName("org.sqlite.JDBC");
         Connection conn = DriverManager.getConnection(URL);
-        PreparedStatement st = conn.prepareStatement(SELECT_ONE_DEPT);
+//        PreparedStatement st = conn.prepareStatement(SELECT_ONE_DEPT);
+        PreparedStatement st = conn.prepareStatement(SELECT_ONE_DEPT_JOIN_LOC);
         st.setInt(1, deptId);
         ResultSet rs = st.executeQuery();
         if(rs.next()) {

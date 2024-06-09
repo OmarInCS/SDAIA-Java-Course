@@ -8,13 +8,16 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(uses = {LocationMapper.class})
 public interface DepartmentMapper {
     DepartmentMapper INSTANCE = Mappers.getMapper(DepartmentMapper.class);
 
     @Mapping(source = "departmentId", target = "deptId")
     @Mapping(source = "departmentName", target = "deptName")
     @Mapping(source = "locationId", target = "locId")
+    @Mapping(source = "location", target = "loc")
+//    @Mapping(source = "location.locationId", target = "loc.locationId")
+//    @Mapping(source = "location.city", target = "loc.city")
     DepartmentDto toDeptDto(Department d);
 
     @Mapping(source = "d.departmentId", target = "deptId")

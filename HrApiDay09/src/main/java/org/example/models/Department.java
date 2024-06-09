@@ -4,6 +4,7 @@ import jakarta.ws.rs.FormParam;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 @XmlRootElement
@@ -15,6 +16,8 @@ public class Department {
     private String departmentName;
     @FormParam("locationId")
     private int locationId;
+
+    private Location location;
 
     public Department() {
     }
@@ -29,6 +32,10 @@ public class Department {
         departmentId = rs.getInt("department_id");
         departmentName = rs.getString("department_name");
         locationId = rs.getInt("location_id");
+        ResultSetMetaData mt = rs.getMetaData();
+        if(mt.getColumnCount() > 3) {
+            location = new Location(rs);
+        }
     }
 
     public int getDepartmentId() {
@@ -53,6 +60,14 @@ public class Department {
 
     public void setLocationId(int locationId) {
         this.locationId = locationId;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     @Override

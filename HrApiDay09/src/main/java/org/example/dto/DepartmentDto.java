@@ -14,10 +14,9 @@ public class DepartmentDto {
     private int deptId;
     private String deptName;
     private int locId;
-
     private String city;
-
     private String streetAddress;
+    private LocationDto loc;
 
     private ArrayList<LinkDto> links = new ArrayList<>();
 
@@ -74,6 +73,14 @@ public class DepartmentDto {
 
     public void setStreetAddress(String streetAddress) {
         this.streetAddress = streetAddress;
+    }
+
+    public LocationDto getLoc() {
+        return loc;
+    }
+
+    public void setLoc(LocationDto loc) {
+        this.loc = loc;
     }
 
     @XmlElementWrapper

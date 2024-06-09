@@ -64,9 +64,10 @@ public class DepartmentController {
                 throw new DataNotFoundException("Department " + deptId + "Not found");
             }
 
-            Location loc = locDao.selectLoc(dept.getLocationId());
+//            Location loc = locDao.selectLoc(dept.getLocationId());
 
-            DepartmentDto dto = DepartmentMapper.INSTANCE.toDeptDto(dept, loc);
+//            DepartmentDto dto = DepartmentMapper.INSTANCE.toDeptDto(dept, loc);
+            DepartmentDto dto = DepartmentMapper.INSTANCE.toDeptDto(dept);
 
             addLinks(dto);
 
