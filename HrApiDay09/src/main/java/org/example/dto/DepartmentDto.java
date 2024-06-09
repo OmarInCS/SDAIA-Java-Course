@@ -11,49 +11,69 @@ import java.util.ArrayList;
 @XmlRootElement
 public class DepartmentDto {
 
-    private int departmentId;
-    private String departmentName;
-    private int locationId;
+    private int deptId;
+    private String deptName;
+    private int locId;
+
+    private String city;
+
+    private String streetAddress;
 
     private ArrayList<LinkDto> links = new ArrayList<>();
 
     public DepartmentDto() {
     }
 
-    public DepartmentDto(int departmentId, String departmentName, int locationId) {
-        this.departmentId = departmentId;
-        this.departmentName = departmentName;
-        this.locationId = locationId;
+    public DepartmentDto(int deptId, String deptName, int locId) {
+        this.deptId = deptId;
+        this.deptName = deptName;
+        this.locId = locId;
     }
 
     public DepartmentDto(ResultSet rs) throws SQLException {
-        departmentId = rs.getInt("department_id");
-        departmentName = rs.getString("department_name");
-        locationId = rs.getInt("location_id");
+        deptId = rs.getInt("department_id");
+        deptName = rs.getString("department_name");
+        locId = rs.getInt("location_id");
     }
 
-    public int getDepartmentId() {
-        return departmentId;
+    public int getDeptId() {
+        return deptId;
     }
 
-    public void setDepartmentId(int departmentId) {
-        this.departmentId = departmentId;
+    public void setDeptId(int deptId) {
+        this.deptId = deptId;
     }
 
-    public String getDepartmentName() {
-        return departmentName;
+    public String getDeptName() {
+        return deptName;
     }
 
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
     }
 
-    public int getLocationId() {
-        return locationId;
+    public int getLocId() {
+        return locId;
     }
 
-    public void setLocationId(int locationId) {
-        this.locationId = locationId;
+    public void setLocId(int locId) {
+        this.locId = locId;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStreetAddress() {
+        return streetAddress;
+    }
+
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
     }
 
     @XmlElementWrapper
@@ -72,9 +92,9 @@ public class DepartmentDto {
     @Override
     public String toString() {
         return "Department{" +
-                "departmentId=" + departmentId +
-                ", departmentName='" + departmentName + '\'' +
-                ", locationId=" + locationId +
+                "departmentId=" + deptId +
+                ", departmentName='" + deptName + '\'' +
+                ", locationId=" + locId +
                 '}';
     }
 }

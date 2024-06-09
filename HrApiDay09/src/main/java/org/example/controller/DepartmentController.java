@@ -3,10 +3,13 @@ package org.example.controller;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
 import org.example.dao.DepartmentDAO;
+import org.example.dao.LocationDAO;
 import org.example.dto.DepartmentDto;
 import org.example.dto.DepartmentFilterDto;
 import org.example.exceptions.DataNotFoundException;
+import org.example.mappers.DepartmentMapper;
 import org.example.models.Department;
+import org.example.models.Location;
 
 import java.net.URI;
 import java.sql.SQLException;
@@ -16,6 +19,7 @@ import java.util.ArrayList;
 public class DepartmentController {
 
     DepartmentDAO dao = new DepartmentDAO();
+    LocationDAO locDao = new LocationDAO();
     @Context UriInfo uriInfo;
     @Context HttpHeaders headers;
 
@@ -60,10 +64,9 @@ public class DepartmentController {
                 throw new DataNotFoundException("Department " + deptId + "Not found");
             }
 
-            DepartmentDto dto = new DepartmentDto();
-            dto.setDepartmentId(dept.getDepartmentId());
-            dto.setDepartmentName(dept.getDepartmentName());
-            dto.setLocationId(dept.getLocationId());
+            Location loc = locDao.selectLoc(dept.getLocationId());
+
+            DepartmentDto dto = DepartmentMapper.INSTANCE.toDeptDto(dept, loc);
 
             addLinks(dto);
 
@@ -97,9 +100,10 @@ public class DepartmentController {
 
     @POST
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response insertDepartment(Department dept) {
+    public Response insertDepartment(DepartmentDto dto) {
 
         try {
+            Department dept = DepartmentMapper.INSTANCE.toModel(dto);
             dao.insertDept(dept);
             NewCookie cookie = (new NewCookie.Builder("username")).value("OOOOO").build();
             URI uri = uriInfo.getAbsolutePathBuilder().path(dept.getDepartmentId() + "").build();
