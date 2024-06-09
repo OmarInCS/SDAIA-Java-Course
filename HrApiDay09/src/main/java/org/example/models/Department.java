@@ -15,7 +15,7 @@ public class Department {
     @FormParam("departmentName")
     private String departmentName;
     @FormParam("locationId")
-    private int locationId;
+    private Integer locationId;
 
     private Location location;
 
@@ -32,6 +32,10 @@ public class Department {
         departmentId = rs.getInt("department_id");
         departmentName = rs.getString("department_name");
         locationId = rs.getInt("location_id");
+//        if(departmentName.equals("IT")) {
+//            departmentName = null;
+//            locationId = null;
+//        }
         ResultSetMetaData mt = rs.getMetaData();
         if(mt.getColumnCount() > 3) {
             location = new Location(rs);
@@ -54,11 +58,11 @@ public class Department {
         this.departmentName = departmentName;
     }
 
-    public int getLocationId() {
+    public Integer getLocationId() {
         return locationId;
     }
 
-    public void setLocationId(int locationId) {
+    public void setLocationId(Integer locationId) {
         this.locationId = locationId;
     }
 
