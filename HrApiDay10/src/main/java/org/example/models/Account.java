@@ -21,14 +21,14 @@ public class Account {
         return balance*getMonthlyRate();
     }
 
-    public void deposit(double amaunt)
+    public void deposit(double amount)
     {
-        balance+=amaunt;
+        balance+=amount;
     }
 
-    public void withdraw(double amaunt)
+    public void withdraw(double amount)
     {
-        balance-=amaunt;
+        balance-=amount;
     }
 
     public double getBalance()
