@@ -7,9 +7,9 @@ import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
 
-@Mapper(uses = {LocationMapper.class}, imports = {java.util.UUID.class})
+@Mapper(uses = {LocationMapper.class}, imports = {java.util.UUID.class}, componentModel = "cdi")
 public interface DepartmentMapper {
-    DepartmentMapper INSTANCE = Mappers.getMapper(DepartmentMapper.class);
+//    DepartmentMapper INSTANCE = Mappers.getMapper(DepartmentMapper.class);
 
     @BeforeMapping
     static void validate(Department d) {

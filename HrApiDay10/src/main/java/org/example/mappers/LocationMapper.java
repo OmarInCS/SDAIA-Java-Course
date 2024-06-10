@@ -5,7 +5,7 @@ import org.example.dto.LocationDto;
 import org.example.models.Location;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "cdi")
 public interface LocationMapper {
 
     LocationDto toLocDto(Location l);

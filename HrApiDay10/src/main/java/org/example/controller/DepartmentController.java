@@ -26,6 +26,9 @@ public class DepartmentController {
     @Context UriInfo uriInfo;
     @Context HttpHeaders headers;
 
+    @Inject
+    DepartmentMapper mapper;
+
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, "text/csv"})
     public Response getAllDepartments(
@@ -70,7 +73,7 @@ public class DepartmentController {
 //            Location loc = locDao.selectLoc(dept.getLocationId());
 
 //            DepartmentDto dto = DepartmentMapper.INSTANCE.toDeptDto(dept, loc);
-            DepartmentDto dto = DepartmentMapper.INSTANCE.toDeptDto(dept);
+            DepartmentDto dto = mapper.toDeptDto(dept);
 
             addLinks(dto);
 
@@ -107,7 +110,7 @@ public class DepartmentController {
     public Response insertDepartment(DepartmentDto dto) {
 
         try {
-            Department dept = DepartmentMapper.INSTANCE.toModel(dto);
+            Department dept = mapper.toModel(dto);
             dao.insertDept(dept);
             NewCookie cookie = (new NewCookie.Builder("username")).value("OOOOO").build();
             URI uri = uriInfo.getAbsolutePathBuilder().path(dept.getDepartmentId() + "").build();

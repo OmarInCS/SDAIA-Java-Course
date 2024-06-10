@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ValueMapping;
 
-@Mapper
+@Mapper(componentModel = "cdi")
 public interface PaymentTypeMapper {
 
 //    @ValueMapping(source = "CARD_VISA", target = "CARD")
