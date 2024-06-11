@@ -1,0 +1,51 @@
+-- Create DOCTORS table
+CREATE TABLE DOCTORS (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    specialty TEXT NOT NULL,
+    email TEXT NOT NULL,
+    password TEXT NOT NULL,
+    phone TEXT NOT NULL
+);
+
+-- Create PATIENTS table
+CREATE TABLE PATIENTS (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    password TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    dateOfBirth DATE NOT NULL
+);
+
+-- Create CONSULTATIONS table
+CREATE TABLE CONSULTATIONS (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    doctor_id INTEGER NOT NULL,
+    patient_id INTEGER NOT NULL,
+    requestTime DATETIME NOT NULL,
+    consultationTime DATETIME NOT NULL,
+    status TEXT NOT NULL,
+    diagnosis TEXT,
+    FOREIGN KEY (doctor_id) REFERENCES DOCTORS(id),
+    FOREIGN KEY (patient_id) REFERENCES PATIENTS(id)
+);
+
+-- Create SCHEDULES table
+CREATE TABLE SCHEDULES (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    doctor_id INTEGER NOT NULL,
+    startTime DATETIME NOT NULL,
+    endTime DATETIME NOT NULL,
+    isAvailable BOOLEAN NOT NULL,
+    FOREIGN KEY (doctor_id) REFERENCES DOCTORS(id)
+);
+
+-- Create MEDICAL_REPORTS table
+CREATE TABLE MEDICAL_REPORTS (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    patient_id INTEGER NOT NULL,
+    details TEXT NOT NULL,
+    reportDate DATETIME NOT NULL,
+    FOREIGN KEY (patient_id) REFERENCES PATIENTS(id)
+);
