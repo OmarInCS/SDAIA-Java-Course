@@ -55,4 +55,19 @@ public class TestDepartmentDao {
         }
 
     }
+
+
+    @Test
+    public void testUpdateDept() throws SQLException, ClassNotFoundException {
+        Department d = new Department(2, "VIP Department", 1500);
+
+        Assertions.assertDoesNotThrow(() -> dao.updateDept(d));
+
+        Department newD = dao.selectDept(d.getDepartmentId());
+
+        Assertions.assertNotNull(newD);
+        Assertions.assertEquals(newD.getDepartmentName(), d.getDepartmentName());
+        Assertions.assertEquals(newD.getLocationId(), d.getLocationId());
+
+    }
 }
