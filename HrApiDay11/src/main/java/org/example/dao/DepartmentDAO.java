@@ -50,6 +50,7 @@ public class DepartmentDAO implements Serializable {
     }
 
     public Department selectDept(int deptId) throws SQLException, ClassNotFoundException {
+        System.out.println("********************");
         Class.forName("org.sqlite.JDBC");
         Connection conn = DriverManager.getConnection(URL);
 //        PreparedStatement st = conn.prepareStatement(SELECT_ONE_DEPT);
