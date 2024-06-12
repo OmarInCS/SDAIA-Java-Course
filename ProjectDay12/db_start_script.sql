@@ -15,7 +15,7 @@ CREATE TABLE PATIENTS (
     email TEXT NOT NULL,
     password TEXT NOT NULL,
     phone TEXT NOT NULL,
-    dateOfBirth DATE NOT NULL
+    birth_date DATE NOT NULL
 );
 
 -- Create CONSULTATIONS table
@@ -23,8 +23,8 @@ CREATE TABLE CONSULTATIONS (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     doctor_id INTEGER NOT NULL,
     patient_id INTEGER NOT NULL,
-    requestTime DATETIME NOT NULL,
-    consultationTime DATETIME NOT NULL,
+    request_time DATETIME NOT NULL,
+    consultation_time DATETIME NOT NULL,
     status TEXT NOT NULL,
     diagnosis TEXT,
     FOREIGN KEY (doctor_id) REFERENCES DOCTORS(id),
@@ -35,9 +35,9 @@ CREATE TABLE CONSULTATIONS (
 CREATE TABLE SCHEDULES (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     doctor_id INTEGER NOT NULL,
-    startTime DATETIME NOT NULL,
-    endTime DATETIME NOT NULL,
-    isAvailable BOOLEAN NOT NULL,
+    start_time DATETIME NOT NULL,
+    end_time DATETIME NOT NULL,
+    is_available BOOLEAN NOT NULL,
     FOREIGN KEY (doctor_id) REFERENCES DOCTORS(id)
 );
 
@@ -46,6 +46,6 @@ CREATE TABLE MEDICAL_REPORTS (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     patient_id INTEGER NOT NULL,
     details TEXT NOT NULL,
-    reportDate DATETIME NOT NULL,
+    report_date DATETIME NOT NULL,
     FOREIGN KEY (patient_id) REFERENCES PATIENTS(id)
 );
